@@ -12,10 +12,12 @@ def get_last_page():
     return int(last_page)
 
 def extract_job(html):
-    title = html.find("div",{"class": "grid--cell fl1 "}).find("h2").find("a")["title"]
-    company, location = html.find("div",{"class": "-company"}).find_all("span", recursive = False)
-    print(company.get_text(strip = True).strip("-"), location.get_text(strip = True))
-    return {'title': title}
+    title = html.find("div",{"class": "s-link "}).find("h2").find("a")["title"]
+    company, location = html.find("div",{"class": "mb4"}).find_all("span", recursive = False)
+    company = company.get_text(strip = True)
+    location = location.get_text(strip = True).strip("-").strip("\r").strip("\n")
+
+    return {'title': title, 'company': company, 'location': location}
 
 
 def extract_jobs(last_page):
