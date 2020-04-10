@@ -31,8 +31,11 @@ def extract_job(html):
         company = None
     location = html.find("div", {"class": "recJobLoc"})['data-rc-loc']
     job_id = html["data-jk"]
-    return {'title': title, 'company': company, 'location': location,
-            "link": f"https://kr.indeed.com/viewjob?jk={job_id}"}
+    return {'title': title,
+            'company': company,
+            'location': location,
+            "link": f"https://kr.indeed.com/viewjob?jk={job_id}"
+            }
 
 
 def extract_jobs(last_page):
@@ -46,6 +49,7 @@ def extract_jobs(last_page):
             job = extract_job(result)
             jobs.append(job)
     return jobs
+
 
 def get_jobs():
     last_page = get_last_page()
