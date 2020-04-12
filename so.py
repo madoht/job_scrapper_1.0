@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-URL = f"https://stackoverflow.com/jobs/developer-jobs-using-python?pg=i"
+URL = f"https://stackoverflow.com/jobs?q=python&pg=i"
 
 
 def get_last_page():
@@ -13,18 +13,17 @@ def get_last_page():
 
 
 def extract_job(html):
-    title = html.find("div", {"class": "s-link "}
-                      ).find("h2").find("a")["title"]
-    company, location = html.find(
-        "div", {"class": "mb4"}).find_all("span", recursive=False)
-    company = company.get_text(strip=True)
-    location = location.get_text(strip=True).strip("-").strip("\r").strip("\n")
-    job_id = html['data-jobid']
+    title = html.find("h2", {"class": "mb4"}).find("a")["title"]
+    company, location = html.find("h3", {"class": "mb4"}).find_all("span", recursive = False)
+    # company = company.get_text(strip=True)
+    # location = location.get_text(strip=True).strip("-").strip("\r").strip("\n")
+    # job_id = html['data-jobid']
+    print(company.string, location.string)
     return {
-        'title': title, 
-        'company': company, 
-        'location': location, 
-        "apply_link": f"https://stackoverflow.com/jobs/{job_id}"
+        # "title" : title
+        # 'company': company, 
+        # 'location': location, 
+        # "apply_link": f"https://stackoverflow.com/jobs/{job_id}"
         }
 
 
@@ -38,7 +37,7 @@ def extract_jobs(last_page):
             job = extract_job(result)
             print(job)
             jobs.append(job)
-        return jobs
+    return jobs
 
 
 def get_jobs():
