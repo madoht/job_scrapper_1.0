@@ -18,7 +18,7 @@ def get_last_page():
 
 
 def extract_job(html):
-    title = html.find("div", {"class": "title"}).find("a")["title"]
+    title = html.find("h2", {"class": "title"}).find("a")["title"]
     company = html.find("span", {"class": "company"})
     if company:
         company_anchor = company.find("a")
